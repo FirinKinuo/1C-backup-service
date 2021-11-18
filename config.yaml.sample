@@ -1,0 +1,5 @@
+anilibria_websocket_url: ws://api.anilibria.tv/v2/ws/
+
+mongodb_host: localhost
+mongodb_port: 27017
+mongodb_database:
