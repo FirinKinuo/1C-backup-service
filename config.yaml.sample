@@ -1,5 +1,16 @@
-anilibria_websocket_url: ws://api.anilibria.tv/v2/ws/
+debug: False
+flask_secret_key:
+web_host: localhost
+web_port: 5080
 
-mongodb_host: localhost
-mongodb_port: 27017
-mongodb_database:
+ldap_type: ldap  # ldap, ldaps, ldapi
+ldap_host: example.host
+ldap_base_dn: dc=example,dc=host
+ldap_user_dn: ou=users
+ldap_group_dn: ou=groups
+ldap_user_rdn_attr: cn
+ldap_user_login_attr: mail
+ldap_bind_user_dn: null
+ldap_bind_user_password: null
+
+backup_dir: example/path/to/dir
