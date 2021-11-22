@@ -1,0 +1,22 @@
+<header class="backup-filters">
+    <div class="backup-filters__select">
+        <label for="base-number">
+            <span>База:</span>
+            <select id="base-number">
+                {% for base_number in base_numbers %}
+                    <option value="{{ base_number }}">{{ base_number }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+
+    <div class="backup-filters__select" style="min-width: 300px">
+        <label for="backup-month">
+            <select id="backup-month">
+                {% for month in ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'] %}
+                    <option value="{{ loop.index0 }}">{{ month }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+</header>

@@ -1,0 +1,119 @@
+@import "root.css";
+
+.backup {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin: 0 auto;
+    padding: 50px 0;
+    width: 90%;
+}
+
+.backup-filters {
+    display: flex;
+    gap: 5%;
+}
+
+.backup-filters__select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height: 60px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: var(--block-bg);
+    transition: 200ms ease-in;
+}
+
+.backup-filters__select * {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.backup-filters__select select {
+    background: transparent;
+    cursor: pointer;
+}
+
+.backup-filters__select option {
+    font-weight: normal;
+    font-size: 0.8rem;
+}
+
+.backup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.backup-list_element {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.backup-list__year {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    width: 300px;
+    height: 105px;
+    background-color: var(--primary);
+    border-radius: var(--border-radius);
+    font-weight: 900;
+    font-size: 2.4rem;
+}
+
+.backup-list__table {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.backup-list__day {
+    position: relative;
+    flex: 0 1 calc((100% / 10) - 1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 75px;
+    min-height: 75px;
+    background: var(--block-bg);
+    border-radius: var(--border-radius);
+    font-size: 1.6rem;
+    overflow: hidden;
+    transition: 100ms ease-in;
+
+}
+
+.backup-list__day:before {
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    background: linear-gradient(144deg, rgba(0, 163, 144, 0.5) 0%, rgba(229, 57, 134, 0.5));
+    z-index: -1;
+    transition: 100ms ease-in;
+
+}
+.backup-list__day:hover {
+    color: white;
+}
+
+.backup-list__day:hover:before {
+    opacity: 100%;
+}
+
+@media screen and (max-width: 600px){
+    .backup-filters {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .backup-list__table {
+        justify-content: center;
+    }
+}
