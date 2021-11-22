@@ -1,9 +1,9 @@
 import sys
 import logging
 
-import yaml
-
 from pathlib import Path
+
+import yaml
 
 log = logging.getLogger('init')
 YAML_CONFIG_PATH = Path('/etc', '1c-backup-service', 'config.yaml')
@@ -21,7 +21,7 @@ def get_config_from_yaml() -> dict:
         with open(YAML_CONFIG_PATH, 'r', encoding="utf-8") as config_file:
             return yaml.load(stream=config_file, Loader=yaml.loader.SafeLoader)
     except FileNotFoundError:
-        raise SystemExit(f"Невозможно найти файл конфигурации! Путь: {YAML_CONFIG_PATH}")
+        raise SystemExit(f"Невозможно найти файл конфигурации! Путь: {YAML_CONFIG_PATH}") from SystemExit
 
 
 _config = get_config_from_yaml()
