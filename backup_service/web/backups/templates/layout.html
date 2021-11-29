@@ -12,5 +12,6 @@
 <body class="backup">
 {% include 'backup_filters.html' %}
 {% block content %}{% endblock %}
+<script src="{{ url_for('backups.static', filename='js/api.js') }}"></script>
 </body>
 </html>
