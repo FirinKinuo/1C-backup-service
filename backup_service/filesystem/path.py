@@ -25,10 +25,10 @@ class BackupPath(PosixPath if os.name == 'posix' else WindowsPath):
         """
         return datetime.strptime(re.search(r'(\d{8})', self.stem).group(), '%Y%m%d').date()
 
-    def get_size(self) -> int:
+    def get_size(self) -> float:
         """
         Получить размер файла бекапа в МегаБайтах
         Returns:
-            int: Размер файла
+            float: Размер файла
         """
-        return os.path.getsize(self) * 1024 * 1024
+        return os.path.getsize(self) / 1024 / 1024
