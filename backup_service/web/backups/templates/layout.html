@@ -10,8 +10,14 @@
     <title>{{ title }}</title>
 </head>
 <body class="backup">
-{% include 'backup_filters.html' %}
-{% block content %}{% endblock %}
-<script src="{{ url_for('backups.static', filename='js/api.js') }}"></script>
+<header class="backup-header">
+    {% include 'backup_filters.html' %}
+    {% include 'backup_manage.html' %}
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+<script type="module" src="{{ url_for('backups.static', filename='js/handlers.js') }}">
+</script>
 </body>
 </html>

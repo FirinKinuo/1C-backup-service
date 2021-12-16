@@ -1,16 +1,16 @@
-<header class="backup-filters">
-    <div class="backup-filters__select">
+<nav class="backup-block backup-filters">
+    <div class="backup-filters__select backup__button">
         <label for="base-number">
             <span>База:</span>
             <select id="base-name">
-                {% for base_number in base_numbers %}
+                {% for base_number in base_numbers|sort() %}
                     <option value="{{ base_number }}">{{ base_number }}</option>
                 {% endfor %}
             </select>
         </label>
     </div>
 
-    <div class="backup-filters__select" style="min-width: 300px">
+    <div class="backup-filters__select backup__button">
         <label for="backup-month">
             <select id="backup-month">
             <option selected disabled hidden>Месяц</option>
@@ -20,4 +20,4 @@
             </select>
         </label>
     </div>
-</header>
+</nav>
