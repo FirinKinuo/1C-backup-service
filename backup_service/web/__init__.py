@@ -24,6 +24,7 @@ def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Fla
     app = Flask("1C BackupService", static_folder=None)
     app.debug = debug if debug else config.DEBUG
     app.testing = test if test else config.IS_TEST
+    app.secret_key = config.FLASK_SECRET_KEY
 
     app.config['LDAP_HOST'] = config.LDAP_HOST
     app.config['LDAP_BASE_DN'] = config.LDAP_BASE_DN
@@ -36,8 +37,6 @@ def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Fla
     app.config['LDAP_GROUP_MEMBER_FILTER_FIELD'] = config.LDAP_GROUP_MEMBER_FILTER_FIELD
     app.config['LDAP_USER_OBJECT_FILTER'] = config.LDAP_USER_OBJECT_FILTER
     app.config['LDAP_LOGIN_VIEW'] = 'backups.login_user'
-
-    app.secret_key = config.FLASK_SECRET_KEY
 
     app.register_blueprint(blueprint=backups.blueprint, url_prefix='/')
 

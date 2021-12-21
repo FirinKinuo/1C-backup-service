@@ -28,8 +28,6 @@ _config = get_config_from_yaml()
 
 DEBUG = bool(_config.get('debug')) or False
 FLASK_SECRET_KEY = _config.get('flask_secret_key')
-WEB_HOST = _config.get('web_host') or 'localhost'
-WEB_PORT = int(_config.get('web_port')) or 5080
 
 LDAP_TYPE = _config.get('ldap_type')
 LDAP_HOST = _config.get('ldap_host')
