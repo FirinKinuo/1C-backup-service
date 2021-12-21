@@ -1,9 +1,5 @@
 @import "root.css";
 
-html {
-    height: 100%;
-}
-
 .backup {
     display: flex;
     flex-direction: column;
@@ -50,7 +46,7 @@ html {
     transition: 200ms ease-in;
 }
 
-.backup-filters__select:hover * {
+.backup-filters__select:hover *:not(option) {
     color: var(--primary);
 }
 

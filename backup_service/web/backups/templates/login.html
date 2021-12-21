@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'metatags.html' %}
+    <link rel="stylesheet" href="{{ url_for('backups.static', filename='css/login.css') }}">
+    <title>Вход</title>
+    {% if error_credentials %}
+        <style>
+            .login-page__field::after {
+                background: linear-gradient(52.4deg, #ef0ca8 -32.01%, #ec2946 100%) !important;
+            }
+        </style>
+    {% endif %}
+</head>
+<body class="login-page">
+<main class="login-page__wrap">
+    <form class="login-page_form" method="post" action="">
+        <div class="login-page__field">
+            <label for="username" class="login-page__label"></label>
+            <input type="text" id="username" name="ldap-username" autocomplete="on" class="login-page__input"
+                   placeholder="Логин" required>
+        </div>
+
+        <div class="login-page__field">
+            <label for="password" class="login-page__label"></label>
+            <input type="password" id="password" name="ldap-password" class="login-page__input" placeholder="Пароль"
+                   required>
+        </div>
+
+        <button class="login-page__submit" type="submit">Войти</button>
+    </form>
+</main>
+
+</body>
+</html>

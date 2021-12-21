@@ -34,3 +34,7 @@
 *::-webkit-scrollbar-thumb {
     background-color: var(--primary);
 }
+
+html {
+    height: 100%;
+}
