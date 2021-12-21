@@ -1,3 +1,5 @@
+import re
+
 from pathlib import Path
 from backup_service.settings import config
 from backup_service.filesystem import path
@@ -28,4 +30,5 @@ def search_base_backup_folders() -> list[str]:
     Returns:
         list[str]: Список названий папок с бэкапами
     """
-    return list(map(lambda backup_path: backup_path.name, config.BACKUP_DIR.iterdir()))
+    return [backup_path.name for backup_path in config.BACKUP_DIR.iterdir()
+            if re.search(r'(^\d+.+)', backup_path.name)]
