@@ -26,19 +26,21 @@ def get_config_from_yaml() -> dict:
 
 _config = get_config_from_yaml()
 
-DEBUG = bool(_config.get('debug'))
+DEBUG = bool(_config.get('debug')) or False
 FLASK_SECRET_KEY = _config.get('flask_secret_key')
-WEB_HOST = _config.get('web_host')
-WEB_PORT = int(_config.get('web_port'))
+WEB_HOST = _config.get('web_host') or 'localhost'
+WEB_PORT = int(_config.get('web_port')) or 5080
 
 LDAP_TYPE = _config.get('ldap_type')
 LDAP_HOST = _config.get('ldap_host')
 LDAP_BASE_DN = _config.get('ldap_base_dn')
-LDAP_USER_DN = _config.get('ldap_user_dn')
-LDAP_GROUP_DN = _config.get('ldap_user_rdn_attr')
-LDAP_USER_RDN_ATTR = _config.get('ldap_user_rdn_attr')
-LDAP_USER_LOGIN_ATTR = _config.get('ldap_user_login_attr')
-LDAP_BIND_USER_DN = _config.get('ldap_bind_user_dn')
-LDAP_BIND_USER_PASSWORD = _config.get('ldap_bind_user_password')
+LDAP_USERNAME = _config.get('ldap_username')
+LDAP_PASSWORD = _config.get('ldap_password')
+
+LDAP_GROUP_OBJECT_FILTER = _config.get('ldap_group_object_filter')
+LDAP_GROUPS_OBJECT_FILTER = _config.get('ldap_groups_object_filter')
+LDAP_GROUP_MEMBER_FILTER = _config.get('ldap_group_member_filter')
+LDAP_GROUP_MEMBER_FILTER_FIELD = _config.get('ldap_group_member_filter_field')
+LDAP_USER_OBJECT_FILTER = _config.get('ldap_user_object_filter')
 
 BACKUP_DIR = Path(_config.get('backup_dir')) if _config.get('backup_dir') else None

@@ -1,10 +1,13 @@
 from typing import Optional
 
 from flask import Flask
+from flask_simpleldap import LDAP
 
 from backup_service.settings import config
 from backup_service.web import backups
 from backup_service.web.backups import views
+
+ldap_manager = LDAP()
 
 
 def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Flask:
@@ -21,9 +24,24 @@ def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Fla
     app = Flask("1C BackupService", static_folder=None)
     app.debug = debug if debug else config.DEBUG
     app.testing = test if test else config.IS_TEST
+
+    app.config['LDAP_HOST'] = config.LDAP_HOST
+    app.config['LDAP_BASE_DN'] = config.LDAP_BASE_DN
+    app.config['LDAP_USERNAME'] = config.LDAP_USERNAME
+    app.config['LDAP_PASSWORD'] = config.LDAP_PASSWORD
+
+    app.config['LDAP_GROUP_OBJECT_FILTER'] = config.LDAP_GROUP_OBJECT_FILTER
+    app.config['LDAP_GROUPS_OBJECT_FILTER'] = config.LDAP_GROUPS_OBJECT_FILTER
+    app.config['LDAP_GROUP_MEMBER_FILTER'] = config.LDAP_GROUP_MEMBER_FILTER
+    app.config['LDAP_GROUP_MEMBER_FILTER_FIELD'] = config.LDAP_GROUP_MEMBER_FILTER_FIELD
+    app.config['LDAP_USER_OBJECT_FILTER'] = config.LDAP_USER_OBJECT_FILTER
+    app.config['LDAP_LOGIN_VIEW'] = 'backups.login_user'
+
     app.secret_key = config.FLASK_SECRET_KEY
 
     app.register_blueprint(blueprint=backups.blueprint, url_prefix='/')
+
+    ldap_manager.init_app(app=app)
 
     with app.app_context():
         return app

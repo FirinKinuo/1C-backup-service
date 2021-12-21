@@ -5,8 +5,8 @@ click==8.0.3
 colorama==0.4.4
 coverage==6.1.2
 Flask==2.0.2
-flask-ldap3-login==0.9.17
 Flask-Pydantic==0.9.0
+Flask-SimpleLDAP==1.4.0
 Flask-WTF==1.0.0
 iniconfig==1.1.1
 isort==5.10.1
@@ -20,6 +20,8 @@ packaging==21.3
 platformdirs==2.4.0
 pluggy==1.0.0
 py==1.11.0
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
 pydantic==1.8.2
 pylint==2.11.1
 pyparsing==3.0.6
