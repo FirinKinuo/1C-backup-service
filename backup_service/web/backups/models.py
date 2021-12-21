@@ -11,22 +11,17 @@ class BackupFile(BaseModel):
     size: int
 
 
-class BackupYearGroup(BaseModel):
-    """Модель группы по годам базы данных"""
-    year: int
-    files: list[BackupFile]
-
-
 class BackupQuery(BaseModel):
     """Модель запроса бэкап файла"""
     base_name: str
     month_id: int
 
 
-class BackupResponse(BackupQuery):
+class BackupResponse(BaseModel):
     """Модель ответа на запрос данных файла бэкапа"""
+    base_name: str
     base_name_alias: Optional[str]
-    year_group: list[BackupYearGroup]
+    files: list[BackupFile]
 
 
 class BackupDownloadQuery(BaseModel):
