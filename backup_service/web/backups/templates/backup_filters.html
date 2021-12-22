@@ -13,7 +13,7 @@
     <div class="backup-filters__select backup__button">
         <label for="backup-month">
             <select id="backup-month">
-            <option selected disabled hidden>Месяц</option>
+            <option selected disabled hidden value="">Месяц</option>
                 {% for month in ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'] %}
                     <option value="{{ loop.index }}">{{ month }}</option>
                 {% endfor %}

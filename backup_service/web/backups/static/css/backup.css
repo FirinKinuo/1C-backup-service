@@ -7,7 +7,7 @@
     margin: 0 auto;
     padding: 50px 0;
     width: 90%;
-    background: linear-gradient(252.65deg, #9811C7 -12.01%, #799BF3 100%) no-repeat;
+    background: linear-gradient(252.65deg, #9811C7 -12.01%, #799BF3 100%) no-repeat fixed;
 }
 
 .backup-header {

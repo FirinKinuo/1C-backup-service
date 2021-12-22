@@ -3,7 +3,6 @@ import {addDownloadHandlers} from "./handlers.js";
 export {renderBackupFiles}
 
 const renderBackupFiles = (backup_file) => {
-    console.log(backup_file)
     const backup_table = document.querySelector('.backup-table__body')
     backup_table.innerHTML = ''
 
@@ -16,7 +15,6 @@ const renderBackupFiles = (backup_file) => {
         };
 
         backup_data['files'].forEach(file => {
-            console.log(file)
             rendered_backup_rows += `
                 <tr class="backup-table__row" data-backup=${file['file_url']}>
                     <td class="backup-table__base">${backup_data['base_name_alias']}</td>

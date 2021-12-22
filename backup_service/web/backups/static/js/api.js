@@ -12,16 +12,19 @@ const getBackupFiles = () => {
     const base_name = document.querySelector("#base-name");
     const backup_month = document.querySelector("#backup-month");
 
-    const requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+    if (base_name.value && backup_month.value) {
+        const requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-    fetch(
-        `${window.location.origin}/getBackupFiles?base_name=${base_name.value}&month_id=${backup_month.value}`,
-        requestOptions)
-        .then(response => response.json())
-        .then(result => renderBackupFiles(result))
-        .catch(() => {
-        });
+        fetch(
+            `${window.location.origin}/getBackupFiles?base_name=${base_name.value}&month_id=${backup_month.value}`,
+            requestOptions)
+            .then(response => response.json())
+            .then(result => renderBackupFiles(result))
+            .catch(() => {
+            });
+    }
+
 }
