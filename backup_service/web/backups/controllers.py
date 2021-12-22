@@ -91,7 +91,7 @@ def response_login_user() -> Response:
 
     if found_user is not None:
         session['user_id'] = ldap_username
-        return redirect('/')
+        return redirect(request.args.get('next') or '/')
 
     return response_login_page(error_credentials=True)
 
