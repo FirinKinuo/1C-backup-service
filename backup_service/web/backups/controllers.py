@@ -27,10 +27,10 @@ def response_backup_files(base_name: str, backup_month: int) -> models.BackupRes
     return models.BackupResponse(
         base_name=base_name,
         base_name_alias=base_name,
-        files=[models.BackupFile(
+        files=sorted([models.BackupFile(
             date=backup.backup_date(),
             file_url=str(backup.download_path()),
-            size=backup.get_size()) for backup in backup_files]
+            size=backup.get_size()) for backup in backup_files], reverse=True)
     )
 
 
