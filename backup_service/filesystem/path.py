@@ -8,6 +8,7 @@ from pathlib import PosixPath, WindowsPath, Path
 
 class BackupPath(PosixPath if os.name == 'posix' else WindowsPath):
     """Модификация Path от pathlib для работы с путями до бэкап файлов"""
+
     def download_path(self) -> Path:
         """
         Путь для безопасного распространения в сети
@@ -23,7 +24,11 @@ class BackupPath(PosixPath if os.name == 'posix' else WindowsPath):
         Returns:
             data: Дата создания бэкапа
         """
-        return datetime.strptime(re.search(r'(\d{8})', self.stem).group(), '%Y%m%d').date()
+        matched_date = re.search(r'(\d{8})', self.stem)
+        if matched_date is None:
+            matched_date = re.search(r'\d{4}_\d{2}_\d{2}', self.stem)
+
+        return datetime.strptime(matched_date.group().replace('_', ''), '%Y%m%d').date()
 
     def get_size(self) -> float:
         """
