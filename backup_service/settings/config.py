@@ -6,7 +6,8 @@ from pathlib import Path
 import yaml
 
 log = logging.getLogger('init')
-YAML_CONFIG_PATH = Path('/etc', '1c-backup-service', 'config.yaml')
+EXTERNAL_FILES_DIR = Path('/etc', '1c-backup-service')
+YAML_CONFIG_PATH = Path(EXTERNAL_FILES_DIR, 'config.yaml')
 IS_TEST = any(map(lambda path: 'tests' in path, sys.path))  # Если найдены пути тестов, то переходим в режим теста
 
 
@@ -42,3 +43,5 @@ LDAP_GROUP_MEMBER_FILTER_FIELD = _config.get('ldap_group_member_filter_field')
 LDAP_USER_OBJECT_FILTER = _config.get('ldap_user_object_filter')
 
 BACKUP_DIR = Path(_config.get('backup_dir')) if _config.get('backup_dir') else None
+
+SQLITE_ENGINE = f"sqlite:///{Path(EXTERNAL_FILES_DIR, _config.get('sqlite_path'))}"

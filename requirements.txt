@@ -35,3 +35,5 @@ typing_extensions==4.0.0
 Werkzeug==2.0.2
 wrapt==1.13.3
 WTForms==3.0.0
+
+SQLAlchemy~=1.4.28
