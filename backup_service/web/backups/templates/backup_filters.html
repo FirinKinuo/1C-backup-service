@@ -3,8 +3,8 @@
         <label for="base-number">
             <span>База:</span>
             <select id="base-name">
-                {% for base_number in base_numbers|sort() %}
-                    <option value="{{ base_number }}">{{ base_number }}</option>
+                {% for base_names in base_list|sort() %}
+                    <option value="{{ base_names[0] }}">{{ base_names[1] }}</option>
                 {% endfor %}
             </select>
         </label>

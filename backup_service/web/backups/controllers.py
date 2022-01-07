@@ -6,6 +6,7 @@ from pathlib import Path
 from flask import send_file, Response, render_template, g, redirect, request, session
 from flask_simpleldap import LDAP
 
+from backup_service.database import one_c_bases
 from backup_service.settings import config
 from backup_service.filesystem import search
 from backup_service.web.backups import models
@@ -24,9 +25,10 @@ def response_backup_files(base_name: str, backup_month: int) -> models.BackupRes
         models.BackupResponse: Ответ формата BackupResponse
     """
     backup_files = search.search_backup_files(base_name=base_name, backup_month=backup_month)
+
     return models.BackupResponse(
         base_name=base_name,
-        base_name_alias=base_name,
+        base_name_alias=one_c_bases.OneCBases.get_last(original_name=base_name) or base_name,
         files=sorted([models.BackupFile(
             date=backup.backup_date(),
             file_url=str(backup.download_path()),
@@ -54,9 +56,11 @@ def response_backups_page() -> str:
     Returns:
         str: Строка срендренной страницы
     """
+    base_list = [(base_name, one_c_bases.OneCBases.get_last(original_name=base_name).alias_name or base_name)
+                 for base_name in search.search_base_backup_folders()]
     return render_template(
         'backup_table.html',
-        base_numbers=search.search_base_backup_folders(),
+        base_list=base_list,
         title="База бэкапов"
     )
 
@@ -71,7 +75,7 @@ def find_user_ldap_groups():
 
 def response_login_page(error_credentials: bool = False) -> Union[str, Response]:
     """
-    Получить рендер страницы входа или перенаправление на главную страницу, 
+    Получить рендер страницы входа или перенаправление на главную страницу,
     если вход в аккаунт уже был произведен
 
     Args:
