@@ -1,7 +1,6 @@
 from sqlalchemy.sql import sqltypes, schema
 
 from backup_service.database.base import BaseModel
-from backup_service.database.utils.decorators import with_insertion_lock
 
 
 class OneCBases(BaseModel):
