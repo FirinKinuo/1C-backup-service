@@ -17,6 +17,7 @@ def with_insertion_lock(func):
 
 
 def inserting_errors_handling(func):
+    """Обработка ошибок при неудачном добавлении"""
     def error_handling(*args, **kwargs):
         try:
             return func(*args, **kwargs)
