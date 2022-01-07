@@ -3,8 +3,8 @@ from typing import Union
 from flask_simpleldap import LDAP
 from flask_pydantic import validate
 
+from backup_service.settings import config
 from backup_service.web.backups import blueprint, models, controllers
-
 
 ldap_manager = LDAP()
 
@@ -25,21 +25,21 @@ def login_user() -> Union[str, controllers.Response]:
 
 
 @blueprint.get('/')
-@ldap_manager.group_required(groups=['Access_backups'])
+@ldap_manager.group_required(groups=[config.LDAP_GROUP_ACCESS_BACKUP_TABLE])
 def view_backups() -> str:
     return controllers.response_backups_page()
 
 
 @blueprint.get('/getBackupFiles')
 @validate(query=models.BackupQuery)
-@ldap_manager.group_required(groups=['Access_backups'])
+@ldap_manager.group_required(groups=[config.LDAP_GROUP_ACCESS_BACKUP_TABLE])
 def view_backup_files(query: models.BackupQuery) -> models.BackupResponse:
     return controllers.response_backup_files(base_name=query.base_name, backup_month=query.month_id)
 
 
 @blueprint.get('/download')
 @validate(query=models.BackupDownloadQuery)
-@ldap_manager.group_required(groups=['Access_backups'])
+@ldap_manager.group_required(groups=[config.LDAP_GROUP_ACCESS_BACKUP_DOWNLOAD])
 def download_backup(query: models.BackupDownloadQuery) -> controllers.Response:
     return controllers.response_download_backup(download_file=query.backup)
 
