@@ -4,8 +4,9 @@ from flask import Flask
 from flask_simpleldap import LDAP
 
 from backup_service.settings import config
-from backup_service.web import backups
-from backup_service.web.backups import views
+from backup_service.web import backups, one_c_base
+from backup_service.web.backups import views as backups_views
+from backup_service.web.one_c_base import views as one_c_base_views
 
 ldap_manager = LDAP()
 
@@ -39,7 +40,7 @@ def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Fla
     app.config['LDAP_LOGIN_VIEW'] = 'backups.login_user'
 
     app.register_blueprint(blueprint=backups.blueprint, url_prefix='/')
-
+    app.register_blueprint(blueprint=one_c_base.blueprint, url_prefix='/one-c-base')
     ldap_manager.init_app(app=app)
 
     with app.app_context():
