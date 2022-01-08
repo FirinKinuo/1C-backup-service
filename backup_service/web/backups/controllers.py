@@ -28,7 +28,7 @@ def response_backup_files(base_name: str, backup_month: int) -> models.BackupRes
 
     return models.BackupResponse(
         base_name=base_name,
-        base_name_alias=one_c_bases.OneCBases.get_last(original_name=base_name) or base_name,
+        base_name_alias=one_c_bases.OneCBases.get_last(original_name=base_name).alias_name or base_name,
         files=sorted([models.BackupFile(
             date=backup.backup_date(),
             file_url=str(backup.download_path()),
