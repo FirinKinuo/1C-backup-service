@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     {% include 'metatags.html' %}
-    <link rel="stylesheet" href="{{ url_for('backups.static', filename='css/backup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/backup.css') }}">
     <title>{{ title }}</title>
 </head>
 <body class="backup">
@@ -13,7 +13,7 @@
 <main>
     {% block content %}{% endblock %}
 </main>
-<script type="module" src="{{ url_for('backups.static', filename='js/handlers.js') }}">
-</script>
+<script type="module" src="{{ url_for('static', filename='js/handlers.js') }}"></script>
+<script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 from typing import Optional
+from pathlib import Path
 
 from flask import Flask
 from flask_simpleldap import LDAP
@@ -22,7 +23,8 @@ def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Fla
     Returns:
         Flask: Объект Flask с установленными настройками
     """
-    app = Flask("1C BackupService", static_folder=None)
+    app = Flask("1C BackupService", template_folder=str(Path(__path__[0], 'templates')),
+                static_folder=str(Path(__path__[0], 'static')))
     app.debug = debug if debug else config.DEBUG
     app.testing = test if test else config.IS_TEST
     app.secret_key = config.FLASK_SECRET_KEY
@@ -38,6 +40,8 @@ def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Fla
     app.config['LDAP_GROUP_MEMBER_FILTER_FIELD'] = config.LDAP_GROUP_MEMBER_FILTER_FIELD
     app.config['LDAP_USER_OBJECT_FILTER'] = config.LDAP_USER_OBJECT_FILTER
     app.config['LDAP_LOGIN_VIEW'] = 'backups.login_user'
+    app.config['LDAP_OPENLDAP'] = True
+    app.config['LDAP_OBJECTS_DN'] = 'dn'
 
     app.register_blueprint(blueprint=backups.blueprint, url_prefix='/')
     app.register_blueprint(blueprint=one_c_base.blueprint, url_prefix='/one-c-base')
