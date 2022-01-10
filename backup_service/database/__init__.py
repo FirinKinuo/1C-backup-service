@@ -12,7 +12,7 @@ def create_session() -> scoped_session:
     Returns:
         scoped_session: Созданная сессия
     """
-    engine = create_engine(SQLITE_ENGINE)
+    engine = create_engine(SQLITE_ENGINE, connect_args={'check_same_thread': False})
 
     if not database_exists(engine.url):
         create_database(engine.url)
