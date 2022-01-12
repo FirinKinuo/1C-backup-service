@@ -40,8 +40,7 @@ def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Fla
     app.config['LDAP_GROUP_MEMBER_FILTER_FIELD'] = config.LDAP_GROUP_MEMBER_FILTER_FIELD
     app.config['LDAP_USER_OBJECT_FILTER'] = config.LDAP_USER_OBJECT_FILTER
     app.config['LDAP_LOGIN_VIEW'] = 'backups.login_user'
-    app.config['LDAP_OPENLDAP'] = True
-    app.config['LDAP_OBJECTS_DN'] = 'dn'
+    app.config['LDAP_OPENLDAP'] = config.LDAP_OPENLDAP
 
     app.register_blueprint(blueprint=backups.blueprint, url_prefix='/')
     app.register_blueprint(blueprint=one_c_base.blueprint, url_prefix='/one-c-base')
