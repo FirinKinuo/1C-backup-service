@@ -12,3 +12,9 @@ ldap_manager = LDAP()
 @validate(body=models.OneCBaseModel)
 def view_set_alias() -> tuple[models.OneCBaseNames, int]:
     return controllers.set_alias_base_name()
+
+
+@blueprint.get('/names')
+@ldap_manager.group_required(groups=[config.LDAP_GROUP_ACCESS_MANAGE_BACKUPS])
+def view_get_one_c_bases_name_list() -> controllers.Response:
+    return controllers.response_get_one_c_bases_name_list()

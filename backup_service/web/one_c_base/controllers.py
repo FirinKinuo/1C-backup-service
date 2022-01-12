@@ -1,5 +1,6 @@
-from flask import request
+from flask import request, render_template, jsonify, Response
 
+from backup_service.filesystem import search
 from backup_service.database import one_c_bases
 from backup_service.web.one_c_base import models
 
@@ -23,3 +24,12 @@ def set_alias_base_name() -> tuple[models.OneCBaseModel, int]:
     )
 
     return response, response_status
+
+
+def response_get_one_c_bases_name_list() -> Response:
+    """Получить список имен баз 1С"""
+    return jsonify([models.OneCBaseNames(
+        original_name=base_name,
+        alias_name=(one_c_bases.OneCBases.get_last(original_name=base_name) or one_c_bases.OneCBases(
+            original_name=base_name, alias_name=base_name)).alias_name
+    ).__dict__ for base_name in search.search_base_backup_folders()])
