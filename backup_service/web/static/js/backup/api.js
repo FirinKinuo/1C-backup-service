@@ -26,5 +26,4 @@ const getBackupFiles = () => {
             .catch(() => {
             });
     }
-
 }

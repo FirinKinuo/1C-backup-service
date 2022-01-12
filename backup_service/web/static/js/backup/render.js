@@ -4,7 +4,7 @@ export {renderBackupFiles}
 
 const renderBackupFiles = (backup_file) => {
     const backup_table = document.querySelector('.backup-table__body')
-    backup_table.innerHTML = ''
+    backup_table.innerHTML = '' // Очищаем таблицу
 
     const renderBackupTable = (backup_data) => {
         let rendered_backup_rows = "";

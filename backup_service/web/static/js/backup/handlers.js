@@ -1,15 +1,17 @@
 import {getBackupFiles, downloadBackup} from "./api.js";
 
-export {addDownloadHandlers}
-
+export {addDownloadHandlers};
 
 const handleBackupFilters = () => {
-    [
-        document.querySelector("#base-name"),
-        document.querySelector("#backup-month")
-    ].forEach(field => field.addEventListener('change', () => getBackupFiles()));
+    try {
+        [
+            document.querySelector("#base-name"),
+            document.querySelector("#backup-month")
+        ].forEach(field => field.addEventListener('change', () => getBackupFiles()));
 
-    getBackupFiles()
+        getBackupFiles()
+    } catch (_) {
+    }
 }
 
 const addDownloadHandlers = () => {

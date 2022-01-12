@@ -1,8 +1,8 @@
 <nav class="backup-block backup-filters">
     <div class="backup-filters__select backup__button">
         <label for="base-number">
-            <span>База:</span>
             <select id="base-name">
+                <option selected disabled hidden value="">База 1С</option>
                 {% for base_names in base_list|sort() %}
                     <option value="{{ base_names[0] }}">{{ base_names[1] }}</option>
                 {% endfor %}
@@ -13,7 +13,7 @@
     <div class="backup-filters__select backup__button">
         <label for="backup-month">
             <select id="backup-month">
-            <option selected disabled hidden value="">Месяц</option>
+                <option selected disabled hidden value="">Месяц</option>
                 {% for month in ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'] %}
                     <option value="{{ loop.index }}">{{ month }}</option>
                 {% endfor %}
