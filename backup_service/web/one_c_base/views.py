@@ -18,3 +18,10 @@ def view_set_alias() -> tuple[models.OneCBaseNames, int]:
 @ldap_manager.group_required(groups=[config.LDAP_GROUP_ACCESS_MANAGE_BACKUPS])
 def view_get_one_c_bases_name_list() -> controllers.Response:
     return controllers.response_get_one_c_bases_name_list()
+
+
+@blueprint.get('/aliases')
+@ldap_manager.group_required(groups=[config.LDAP_GROUP_ACCESS_MANAGE_BACKUPS])
+def view_aliases() -> str:
+    return controllers.response_aliases_page()
+

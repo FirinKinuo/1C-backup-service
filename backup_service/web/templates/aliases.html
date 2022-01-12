@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'metatags.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aliases.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
+    <title>Алиасы Баз</title>
+</head>
+<body class="aliases">
+<nav class="navigation">
+    <a href="/" class="navigation__button">Бэкапы</a>
+    <a href="#" class="navigation__button">Логи</a>
+</nav>
+
+<main class="aliases__wrap">
+    <h1 class="aliases__header">Алиасы баз:</h1>
+    <div class="aliases__grid"></div>
+</main>
+
+<script type="module">
+    import {renderAliasNamesChange} from "{{ url_for('static', filename='js/one-c-base/render.js') }}";
+    await renderAliasNamesChange();
+</script>
+<script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+</body>
+</html>

@@ -33,3 +33,8 @@ def response_get_one_c_bases_name_list() -> Response:
         alias_name=(one_c_bases.OneCBases.get_last(original_name=base_name) or one_c_bases.OneCBases(
             original_name=base_name, alias_name=base_name)).alias_name
     ).__dict__ for base_name in search.search_base_backup_folders()])
+
+
+def response_aliases_page() -> str:
+    """Получить рендер страницы списка алиасов баз 1С"""
+    return render_template(template_name_or_list='aliases.html')
