@@ -7,7 +7,8 @@ const renderAliasNamesChange = async () => {
     const alias_names_grid = document.querySelector(".aliases__grid");
     alias_names_grid.innerHTML = ''; // Очищаем таблицу
 
-    const bases_names = await getBasesNames();
+    let bases_names = await getBasesNames();
+    bases_names = bases_names.sort((self, other) => self['alias_name'] < other['alias_name']);
 
     bases_names.forEach(base => {
         alias_names_grid.innerHTML += `
