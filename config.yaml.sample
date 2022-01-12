@@ -1,16 +1,22 @@
 debug: False
-flask_secret_key:
-web_host: localhost
-web_port: 5080
+flask_secret_key: enter-your-generated-key
+flask_session_lifetime: 30
 
 ldap_type: ldap  # ldap, ldaps, ldapi
 ldap_host: example.host
-ldap_base_dn: dc=example,dc=host
-ldap_user_dn: ou=users
-ldap_group_dn: ou=groups
-ldap_user_rdn_attr: cn
-ldap_user_login_attr: mail
-ldap_bind_user_dn: null
-ldap_bind_user_password: null
 
-backup_dir: example/path/to/dir
+ldap_base_dn: 'DC=example,DC=host'
+ldap_username: 'CN=username,DC=example,DC=host'
+ldap_password:
+ldap_group_object_filter: '(&(objectclass=group)(cn=%s))'
+ldap_groups_object_filter: 'objectclass=group'
+ldap_group_member_filter: '(&(cn=*)(objectclass=group)(member=%s))'
+ldap_group_member_filter_field: 'cn'
+ldap_user_object_filter: '(&(objectclass=user)(sAMAccountName=%s))'
+
+ldap_group_access_backup_table:
+ldap_group_access_backup_download:
+ldap_group_access_manage_backups:
+backup_dir:
+
+sqlite_path: backup-service.db
