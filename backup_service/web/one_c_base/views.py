@@ -7,8 +7,8 @@ from backup_service.web.one_c_base import blueprint, models, controllers
 ldap_manager = LDAP()
 
 
-@ldap_manager.group_required(groups=[config.LDAP_GROUP_ACCESS_MANAGE_BACKUPS])
 @blueprint.put('/set-alias')
-@validate(body=models.AliasNameQuery)
-def view_set_alias() -> controllers.Response:
+@ldap_manager.group_required(groups=[config.LDAP_GROUP_ACCESS_MANAGE_BACKUPS])
+@validate(body=models.OneCBaseModel)
+def view_set_alias() -> tuple[models.OneCBaseNames, int]:
     return controllers.set_alias_base_name()
