@@ -3,17 +3,22 @@
 <head>
     {% include 'metatags.html' %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/backup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
+
     <title>{{ title }}</title>
 </head>
 <body class="backup">
 <header class="backup-header">
     {% include 'backup_filters.html' %}
-    {% include 'backup_manage.html' %}
+    <nav class="navigation">
+        <a href="/one-c-base/aliases" class="navigation__button">Алиасы</a>
+        <a href="#" class="navigation__button">Логи</a>
+    </nav>
 </header>
 <main>
     {% block content %}{% endblock %}
 </main>
-<script type="module" src="{{ url_for('static', filename='js/handlers.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/backup/handlers.js') }}"></script>
 <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 </body>
 </html>

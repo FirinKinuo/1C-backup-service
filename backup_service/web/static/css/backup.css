@@ -38,16 +38,18 @@
     height: 60px;
     overflow: hidden;
     transition: 200ms ease-in;
+    padding: 0 10px;
 }
 
 .backup-filters__select * {
     font-weight: 500;
     font-size: 1.2rem;
     transition: 200ms ease-in;
+    text-align: center;
 }
 
 .backup-filters__select:hover *:not(option) {
-    color: var(--primary);
+    color: var(--secondary);
 }
 
 .backup-filters__select select {
@@ -60,30 +62,11 @@
     font-size: 0.8rem;
 }
 
-.backup-manage {
-    max-width: 50%;
-    display: flex;
-    min-height: 60px;
-}
-
-.backup__button {
-    background: transparent;
-    font-size: 1.2rem;
-    margin: 0 15px;
-    font-weight: 500;
-    transition: 200ms ease-in;
-    cursor: pointer;
-}
-
-.backup__button:hover {
-    color: var(--primary);
-}
-
 .backup-table {
     border-collapse: collapse;
     table-layout: auto;
     overflow: hidden;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 

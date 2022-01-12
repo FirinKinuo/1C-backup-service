@@ -1,0 +1,25 @@
+@import url("root.css");
+
+.navigation {
+    align-self: flex-end;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background: white;
+    border-radius: var(--border-radius);
+}
+
+.navigation__button {
+    background: transparent;
+    font-size: 1.2rem;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: 200ms ease-in;
+    cursor: pointer;
+    padding: 15px;
+}
+
+.navigation__button:hover {
+    color: var(--secondary);
+}
