@@ -58,3 +58,6 @@ logging.basicConfig(level=LOGGER_LEVEL,
                     datefmt="%d/%b/%Y %H:%M:%S",
                     filename="/var/log/1c-backup-service/backups.log" if not DEBUG else None,
                     filemode='a')
+
+werkzeug_log = logging.getLogger('werkzeug')
+werkzeug_log.setLevel(logging.ERROR if not DEBUG else logging.DEBUG)
