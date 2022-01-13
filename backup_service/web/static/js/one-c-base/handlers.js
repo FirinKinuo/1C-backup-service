@@ -26,13 +26,14 @@ const handleInputsAliasName = async () => {
                 evt.target.parentElement.querySelector('.aliases_manage'),
                 evt.target.value !== evt.target.defaultValue,
                 "flex");
-
-            switch (evt.keyCode) {
-                case 13: // Клавиша Enter
-                    await handleSendingAliasData(evt.target);
-                    break;
-                case 27: // Клавиша Escape
-                    evt.target.value = evt.target.defaultValue;
+            if (evt.target.value !== evt.target.defaultValue) {
+                switch (evt.keyCode) {
+                    case 13: // Клавиша Enter
+                        await handleSendingAliasData(evt.target);
+                        break;
+                    case 27: // Клавиша Escape
+                        evt.target.value = evt.target.defaultValue;
+                }
             }
         }))
 
