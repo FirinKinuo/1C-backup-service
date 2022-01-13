@@ -1,7 +1,26 @@
-{% extends 'layout.html' %}
+<!doctype html>
+<html lang="ru">
+<head>
+    {% include 'metatags.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/backup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
 
-{% block content %}
+    <title>{{ title }}</title>
+</head>
+<body class="backup">
+<header class="backup-header">
+    {% include 'backup_filters.html' %}
+    <nav class="navigation">
+        <a href="/one-c-base/aliases" class="navigation__button">Алиасы</a>
+        <a href="#" class="navigation__button">Логи</a>
+    </nav>
+</header>
+<main>
     <table class="backup-block backup-table">
         <tbody class="backup-table__body"></tbody>
     </table>
-{% endblock %}
+</main>
+<script type="module" src="{{ url_for('static', filename='js/backup/handlers.js') }}"></script>
+<script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+</body>
+</html>
