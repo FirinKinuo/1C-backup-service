@@ -1,18 +1,27 @@
 from typing import Union
+from functools import total_ordering
+
+from sqlalchemy.sql import sqltypes, schema
 
 from backup_service.database import Base, session
 from backup_service.database.utils import filters, decorators
 
 
+@total_ordering
 class BaseModel(Base):
     """Базовая модель"""
     __abstract__ = True
+    id = schema.Column(sqltypes.Integer, primary_key=True, autoincrement=True, unique=True)
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.id == other.id
+
+    def __lt__(self, other):
+        return self.id < other.id
 
     @classmethod
-    @decorators.with_insertion_lock
-    @decorators.inserting_errors_handling
-    def set_or_get(cls, **kwargs) -> 'BaseModel':
-        """Создать или получить существующую модель"""
+    def _filter_input(cls, **kwargs: dict) -> dict:
+        """Очищает ввод от ненужных аргументов"""
         required_fields = cls.__table__.columns.keys()
         filtered_kwargs = filters.leave_required_keys(kwargs, required_fields)
         required_fields.remove('id')
@@ -21,6 +30,14 @@ class BaseModel(Base):
         if set(required_fields) - set(filtered_kwargs):
             raise KeyError(f"""Не были переданы необходимые поля: {set(required_fields) - set(filtered_kwargs)}""")
 
+        return filtered_kwargs
+
+    @classmethod
+    @decorators.with_insertion_lock
+    @decorators.inserting_errors_handling
+    def set_or_get(cls, **kwargs) -> 'BaseModel':
+        """Создать или получить существующую модель"""
+        filtered_kwargs = cls._filter_input(**kwargs)
         record = session.query(cls).filter_by(**filtered_kwargs).limit(1).scalar()
         if not record:
             if 'id' in filtered_kwargs:
@@ -29,6 +46,19 @@ class BaseModel(Base):
             record = cls(**filtered_kwargs)
             session.add(record)
             session.commit()
+
+        return record
+
+    @classmethod
+    @decorators.with_insertion_lock
+    @decorators.inserting_errors_handling
+    def set(cls, **kwargs) -> 'BaseModel':
+        """Создать новую запись в таблицу"""
+        filtered_kwargs = cls._filter_input(**kwargs)
+
+        record = cls(**filtered_kwargs)
+        session.add(record)
+        session.commit()
 
         return record
 
