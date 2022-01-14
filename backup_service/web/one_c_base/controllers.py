@@ -1,8 +1,10 @@
-from flask import request, render_template, jsonify, Response
+from datetime import datetime
+
+from flask import request, render_template, jsonify, Response, g
 
 from backup_service.filesystem import search
-from backup_service.database import one_c_bases
-from backup_service.web.one_c_base import models
+from backup_service.database import one_c_bases, action_logs
+from backup_service.web.one_c_base import models, log
 
 
 def set_alias_base_name() -> tuple[models.OneCBaseModel, int]:
@@ -21,6 +23,18 @@ def set_alias_base_name() -> tuple[models.OneCBaseModel, int]:
         original_name=one_c_base.original_name,
         alias_name=one_c_base.alias_name,
         share=one_c_base.share
+    )
+
+    log.info(f"User {g.user} "
+             f"{'update' if response_status == 200 else 'add'} "
+             f"alias name {one_c_base.alias_name} for base {one_c_base.original_name}")
+
+    action_logs.ActionLogs.set(
+        ip=request.remote_addr,
+        user=g.user,
+        type=action_logs.TYPE_CHANGE,
+        date=datetime.now(),
+        message=f"Обновление алиаса базы {one_c_base.original_name} на {one_c_base.alias_name}"
     )
 
     return response, response_status

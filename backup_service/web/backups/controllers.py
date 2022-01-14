@@ -2,18 +2,17 @@ import re
 
 from typing import Union
 from pathlib import Path
-from logging import getLogger
+from datetime import datetime
 
 from flask import send_file, Response, render_template, g, redirect, request, session
 from flask_simpleldap import LDAP
 
-from backup_service.database import one_c_bases
+from backup_service.database import one_c_bases, action_logs
 from backup_service.settings import config
 from backup_service.filesystem import search
-from backup_service.web.backups import models
+from backup_service.web.backups import models, log
 
 ldap_manager = LDAP()
-log = getLogger("Backup controller")
 
 
 def response_backup_files(base_name: str, backup_month: int) -> models.BackupResponse:
@@ -26,8 +25,8 @@ def response_backup_files(base_name: str, backup_month: int) -> models.BackupRes
     Returns:
         models.BackupResponse: Ответ формата BackupResponse
     """
+    log.info(f"User: {g.user} requested backup files")
     backup_files = search.search_backup_files(base_name=base_name, backup_month=backup_month)
-
     return models.BackupResponse(
         base_name=base_name,
         base_name_alias=(one_c_bases.OneCBases.get_last(original_name=base_name) or
@@ -48,8 +47,18 @@ def response_download_backup(download_file: str) -> Response:
     Returns:
         Response: Flask Response с файлом бэкапа или ошибку 404
     """
+    log.info(f"User: {g.user} requested download backup - {download_file}")
     download_path = Path(config.BACKUP_DIR, re.sub(r'(_\d{8}.*)|(_backup_?_\d{4}_\d{2}_\d{2}.*)', '', download_file),
                          download_file)
+    if download_path.exists():
+        action_logs.ActionLogs.set(
+            ip=request.remote_addr,
+            user=g.user,
+            type=action_logs.TYPE_DOWNLOAD,
+            date=datetime.now(),
+            message=f"Скачивание файла: {Path(*download_path.parts[-2:])}"
+        )
+
     return send_file(path_or_file=f"{download_path}") if download_path.exists() else Response(status=404)
 
 
@@ -100,9 +109,19 @@ def response_login_user() -> Response:
     found_user = ldap_manager.bind_user(ldap_username, ldap_password)
 
     if found_user is not None:
+        log.info(f"User {ldap_username} login success")
+        action_logs.ActionLogs.set(
+            ip=request.remote_addr,
+            user=ldap_username,
+            type=action_logs.TYPE_LOGIN,
+            date=datetime.now(),
+            message="Вход в сервис"
+        )
+
         session['user_id'] = ldap_username
         return redirect(request.args.get('next') or '/')
 
+    log.info(f"User {ldap_username} login error! Reason: Invalid Credentials")
     return response_login_page(error_credentials=True)
 
 
