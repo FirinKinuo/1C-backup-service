@@ -137,10 +137,6 @@
         display: none;
     }
 
-    .navigation {
-        align-self: center !important;
-    }
-
     .aliases__wrap {
         border-radius: 0;
     }
