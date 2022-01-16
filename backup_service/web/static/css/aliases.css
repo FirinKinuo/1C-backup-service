@@ -115,10 +115,6 @@
 }
 
 @media screen and (max-width: 600px) {
-    :root {
-        font-size: 16px !important;
-    }
-
     .aliases {
         padding-left: 0;
         padding-right: 0;

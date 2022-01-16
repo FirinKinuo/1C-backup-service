@@ -37,3 +37,10 @@
 html {
     height: 100%;
 }
+
+
+@media screen and (max-width: 800px) {
+    :root {
+        font-size: 16px;
+    }
+}
