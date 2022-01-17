@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'metatags.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/action_logs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
+    <title>Логи</title>
+</head>
+<body class="logs">
+<nav class="navigation">
+    <a href="/one-c-base/aliases" class="navigation__button">Алиасы</a>
+    <a href="/" class="navigation__button">Бэкапы</a>
+    <span class="navigation__user">{{ g.user }}</span>
+</nav>
+<main class="logs__wrap">
+    <div class="logs__list"></div>
+</main>
+<script type="module">
+    import {renderActionLogs} from "{{ url_for('static', filename='js/action-logs/render.js') }}";
+    import {addScrollHandler} from "{{ url_for('static', filename='js/action-logs/handlers.js') }}";
+
+    await renderActionLogs(1, false);
+    addScrollHandler();
+</script>
+</body>
+</html>

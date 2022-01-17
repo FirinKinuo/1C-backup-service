@@ -1,0 +1,106 @@
+@import "root.css";
+
+.logs {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin: 0 auto;
+    padding: 50px 0;
+    width: 90%;
+    background: radial-gradient(87.87% 99.09% at 64.87% 38.06%, #DE55A7 0%, #50BB9B 58.09%, #788CD6 100%) fixed no-repeat;
+}
+
+.logs__wrap {
+    background: #fff;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    overflow: hidden;
+}
+
+.logs__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+.logs__id {
+    grid-area: id;
+}
+
+.logs__username {
+    grid-area: username;
+}
+
+.logs__ip {
+    grid-area: ip;
+}
+
+.logs__type {
+    grid-area: type;
+}
+
+.logs__datetime {
+    grid-area: datetime;
+    text-align: start;
+}
+
+.logs__message {
+    grid-area: message;
+    text-align: start;
+}
+
+.logs__grid {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 5% 10% 10% minmax(auto, 50%) 15% auto;
+    grid-template-rows: 1fr;
+    gap: 0 15px;
+    grid-template-areas:
+    "id username type message datetime ip";
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(189, 183, 212, 0.5);
+    transition: 100ms ease-in;
+}
+
+@media screen and (max-width: 1024px) {
+    .logs__grid {
+        display: grid;
+        grid-template-columns: 5% minmax(auto, 20%) 10% 20% auto;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px 5px;
+        grid-template-areas:
+    "id username type ip datetime"
+    "message message message message message";
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .logs__grid {
+        display: grid;
+        grid-template-columns: 10% auto 0 0 auto;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 5px 5px;
+        grid-template-areas:
+    "id username . . type"
+    "datetime . . ip ip"
+    "message message message message message";
+    }
+
+    .logs__username {
+        text-align: start;
+    }
+
+    .logs__type {
+        text-align: end;
+    }
+
+    .logs__ip {
+        text-align: end;
+    }
+}
