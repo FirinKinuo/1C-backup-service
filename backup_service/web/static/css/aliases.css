@@ -1,15 +1,14 @@
 @import "root.css";
 
 .aliases {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(252.74deg, #DE8655 -12.01%, #D678BF 81.56%, #D16FFF 110.17%) no-repeat fixed;
-    height: 100%;
+    gap: 60px;
+    margin: 0 auto;
     padding: 50px 0;
     width: 90%;
-    margin: 0 auto;
+    background: linear-gradient(252.74deg, #DE8655 -12.01%, #D678BF 81.56%, #D16FFF 110.17%)  fixed;
 }
 
 .aliases__wrap {
@@ -123,8 +122,9 @@
     }
 
     .aliases__wrap {
-        padding-left: 50px;
+        padding-left: 20px;
         padding-right: 0;
+        border-radius: 0;
     }
 
     .aliases__field {
@@ -138,6 +138,5 @@
     }
 
     .aliases__wrap {
-        border-radius: 0;
     }
 }
