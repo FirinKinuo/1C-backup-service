@@ -56,7 +56,7 @@ def response_download_backup(download_file: str) -> Response:
             user=g.user,
             type=action_logs.TYPE_DOWNLOAD,
             date=datetime.now(),
-            message=f"Скачивание файла: {Path(*download_path.parts[-2:])}"
+            message=f"Скачивание файла: {Path(*download_path.parts[-1:])}"
         )
 
     return send_file(path_or_file=f"{download_path}") if download_path.exists() else Response(status=404)
