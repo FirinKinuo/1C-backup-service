@@ -94,3 +94,16 @@ class BaseModel(Base):
 
         self.__dict__ |= update  # Слияние словарей для обновления записей класса
         return self
+
+    @classmethod
+    def get_pool_with_offset(cls, offset: int, pool: int) -> list['BaseModel']:
+        """
+        Получить список записей с смещением
+        Args:
+            offset (int): Смещение в списке
+            pool (int): Количество записей
+
+        Returns:
+            list[BaseModel] - Список записей данной модели
+        """
+        return session.query(cls).order_by(cls.id.desc()).offset(offset).limit(pool).all()
