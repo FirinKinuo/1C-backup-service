@@ -6,7 +6,16 @@ const renderActionLogs = async (page, add_more) => {
     const action_logs_list = document.querySelector('.logs__list');
 
     if (!add_more) {
-        action_logs_list.innerHTML = ''; // Очищаем список
+        action_logs_list.innerHTML = `
+            <div class="logs__grid logs__grid_header">
+                <span class="logs__id">ID</span>
+                <span class="logs__username">Пользователь</span>
+                <span class="logs__type">Тип</span>
+                <span class="logs__message">Сообщение</span>
+                <span class="logs__datetime">Дата</span>
+                <span class="logs__ip">IP</span>
+            </div>
+        `; // Очищаем список
     }
 
     const logs_response = await getPaginationActionLogs(page, 20);

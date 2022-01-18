@@ -69,6 +69,15 @@
     transition: 100ms ease-in;
 }
 
+.logs__grid_header {
+    font-weight: bold;
+    border-bottom-width: 2px;
+}
+
+.logs__grid_header * {
+    text-align: center;
+}
+
 @media screen and (max-width: 1024px) {
     .logs__grid {
         display: grid;
@@ -78,6 +87,15 @@
         grid-template-areas:
     "id username type ip datetime"
     "message message message message message";
+    }
+
+    .logs__grid_header {
+        grid-template-rows: 1fr;
+        gap: 0px 5px;
+    }
+
+    .logs__grid_header .logs__message {
+        display: none;
     }
 }
 
@@ -91,6 +109,10 @@
     "id username . . type"
     "datetime . . ip ip"
     "message message message message message";
+    }
+
+    .logs__grid_header {
+        display: none;
     }
 
     .logs__username {
