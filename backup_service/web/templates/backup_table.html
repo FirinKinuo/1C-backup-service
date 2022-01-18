@@ -10,13 +10,13 @@
 <body class="backup">
 <header class="backup-header">
     {% include 'backup_filters.html' %}
-    {% if access_navigation %}
         <nav class="navigation">
+            {% if access_navigation %}
             <a href="/one-c-base/aliases" class="navigation__button">Алиасы</a>
             <a href="/logs" class="navigation__button">Логи</a>
+            {% endif %}
             <span class="navigation__user">{{ g.user['username'] }}</span>
         </nav>
-    {% endif %}
 
 </header>
 <main>
