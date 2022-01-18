@@ -16,6 +16,9 @@ ldap_group_member_filter: '(&(cn=*)(objectclass=group)(member=%s))'
 ldap_group_member_filter_field: 'cn'
 ldap_user_object_filter: '(&(objectclass=user)(sAMAccountName=%s))'
 
+ldap_user_surname_field: 'sn'
+ldap_user_name_field: 'givenName'
+
 ldap_group_access_backup_table:
 ldap_group_access_backup_download:
 ldap_group_access_manage_backups:

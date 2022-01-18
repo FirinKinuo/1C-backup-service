@@ -45,6 +45,9 @@ LDAP_GROUP_MEMBER_FILTER = _config.get('ldap_group_member_filter')
 LDAP_GROUP_MEMBER_FILTER_FIELD = _config.get('ldap_group_member_filter_field')
 LDAP_USER_OBJECT_FILTER = _config.get('ldap_user_object_filter')
 
+LDAP_USER_SURNAME_FIELD = _config.get('ldap_user_surname_field')
+LDAP_USER_NAME_FIELD = _config.get('ldap_user_name_field')
+
 LDAP_GROUP_ACCESS_BACKUP_TABLE = _config.get('ldap_group_access_backup_table') or ''
 LDAP_GROUP_ACCESS_BACKUP_DOWNLOAD = _config.get('ldap_group_access_backup_download') or ''
 LDAP_GROUP_ACCESS_MANAGE_BACKUPS = _config.get('ldap_group_access_manage_backups') or ''

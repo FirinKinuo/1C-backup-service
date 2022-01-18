@@ -25,13 +25,13 @@ def set_alias_base_name() -> tuple[models.OneCBaseModel, int]:
         share=one_c_base.share
     )
 
-    log.info(f"User {g.user} "
+    log.info(f"User {g.user['username']} "
              f"{'update' if response_status == 200 else 'add'} "
              f"alias name {one_c_base.alias_name} for base {one_c_base.original_name}")
 
     action_logs.ActionLogs.set(
         ip=request.remote_addr,
-        user=g.user,
+        user=f"{g.user['surname']} {g.user['name']}",
         type=action_logs.TYPE_CHANGE,
         date=datetime.now(),
         message=f"Обновление алиаса базы {one_c_base.original_name} на {one_c_base.alias_name}"

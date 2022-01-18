@@ -25,7 +25,7 @@ def response_backup_files(base_name: str, backup_month: int) -> models.BackupRes
     Returns:
         models.BackupResponse: Ответ формата BackupResponse
     """
-    log.info(f"User: {g.user} requested backup files")
+    log.info(f"User: {g.user['username']} requested backup files")
     backup_files = search.search_backup_files(base_name=base_name, backup_month=backup_month)
     return models.BackupResponse(
         base_name=base_name,
@@ -47,13 +47,13 @@ def response_download_backup(download_file: str) -> Response:
     Returns:
         Response: Flask Response с файлом бэкапа или ошибку 404
     """
-    log.info(f"User: {g.user} requested download backup - {download_file}")
+    log.info(f"User: {g.user['username']} requested download backup - {download_file}")
     download_path = Path(config.BACKUP_DIR, re.sub(r'(_\d{8}.*)|(_backup_?_\d{4}_\d{2}_\d{2}.*)', '', download_file),
                          download_file)
     if download_path.exists():
         action_logs.ActionLogs.set(
             ip=request.remote_addr,
-            user=g.user,
+            user=f"{g.user['surname']} {g.user['name']}",
             type=action_logs.TYPE_DOWNLOAD,
             date=datetime.now(),
             message=f"Скачивание файла: {Path(*download_path.parts[-1:])}"
@@ -83,7 +83,14 @@ def find_user_ldap_groups():
     """Поиск LDAP групп, в которых состоит пользователь"""
     g.user = None
     if 'user_id' in session:
-        g.user = session['user_id']
+        user_data = ldap_manager.get_object_details(user=session['user_id'])
+
+        g.user = {
+            'username': session['user_id'],
+            'surname': user_data[config.LDAP_USER_SURNAME_FIELD][0].decode(),
+            'name': user_data[config.LDAP_USER_NAME_FIELD][0].decode()
+        }
+
         g.ldap_groups = [group.decode('utf-8') for group in ldap_manager.get_user_groups(user=session['user_id'])]
         log.debug(f"Found groups {g.ldap_groups} for user {g.user}")
 
@@ -107,19 +114,20 @@ def response_login_user() -> Response:
     ldap_password = request.form['ldap-password']
 
     found_user = ldap_manager.bind_user(ldap_username, ldap_password)
-
     if found_user is not None:
+        session['user_id'] = ldap_username
+        find_user_ldap_groups()
+
         log.info(f"User {ldap_username} login success")
         action_logs.ActionLogs.set(
             ip=request.remote_addr,
-            user=ldap_username,
+            user=f"{g.user['surname']} {g.user['name']}",
             type=action_logs.TYPE_LOGIN,
             date=datetime.now(),
             message="Вход в сервис"
         )
 
         session['permanent'] = not config.DEBUG  # Ограничиваем сессию по времени, если не в режиме дебага
-        session['user_id'] = ldap_username
         return redirect(request.args.get('next') or '/')
 
     log.info(f"User {ldap_username} login error! Reason: Invalid Credentials")
