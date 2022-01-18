@@ -75,7 +75,7 @@ def response_backups_page() -> str:
     return render_template(
         'backup_table.html',
         base_list=base_list,
-        title="База бэкапов"
+        access_navigation=config.LDAP_GROUP_ACCESS_MANAGE_BACKUPS in g.ldap_groups
     )
 
 

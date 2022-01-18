@@ -5,16 +5,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/backup.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
 
-    <title>{{ title }}</title>
+    <title>База бэкапов</title>
 </head>
 <body class="backup">
 <header class="backup-header">
     {% include 'backup_filters.html' %}
-    <nav class="navigation">
-        <a href="/one-c-base/aliases" class="navigation__button">Алиасы</a>
-        <a href="/logs" class="navigation__button">Логи</a>
-        <span class="navigation__user">{{ g.user }}</span>
-    </nav>
+    {% if access_navigation %}
+        <nav class="navigation">
+            <a href="/one-c-base/aliases" class="navigation__button">Алиасы</a>
+            <a href="/logs" class="navigation__button">Логи</a>
+            <span class="navigation__user">{{ g.user }}</span>
+        </nav>
+    {% endif %}
+
 </header>
 <main>
     <table class="backup-block backup-table">
