@@ -127,7 +127,8 @@ def response_login_user() -> Response:
             message="Вход в сервис"
         )
 
-        session['permanent'] = not config.DEBUG  # Ограничиваем сессию по времени, если не в режиме дебага
+        # Ограничиваем сессию по времени, если не в режиме дебага
+        session.permanent = not config.DEBUG or config.FLASK_SESSION_LIFETIME
         return redirect(request.args.get('next') or '/')
 
     log.info(f"User {ldap_username} login error! Reason: Invalid Credentials")
