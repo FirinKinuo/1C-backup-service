@@ -118,6 +118,7 @@ def response_login_user() -> Response:
             message="Вход в сервис"
         )
 
+        session['permanent'] = not config.DEBUG  # Ограничиваем сессию по времени, если не в режиме дебага
         session['user_id'] = ldap_username
         return redirect(request.args.get('next') or '/')
 

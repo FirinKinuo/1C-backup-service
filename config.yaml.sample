@@ -1,9 +1,11 @@
 debug: False
+log_level: error
 flask_secret_key: enter-your-generated-key
 flask_session_lifetime: 30
 
 ldap_type: ldap  # ldap, ldaps, ldapi
 ldap_host: example.host
+ldap_openldap: false
 
 ldap_base_dn: 'DC=example,DC=host'
 ldap_username: 'CN=username,DC=example,DC=host'

@@ -1,5 +1,6 @@
 from typing import Optional
 from pathlib import Path
+from datetime import timedelta
 
 from flask import Flask
 from flask_simpleldap import LDAP
@@ -29,6 +30,8 @@ def create_app(debug: Optional[bool] = None, test: Optional[bool] = None) -> Fla
     app.debug = debug if debug else config.DEBUG
     app.testing = test if test else config.IS_TEST
     app.secret_key = config.FLASK_SECRET_KEY
+
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=config.FLASK_SESSION_LIFETIME)
 
     app.config['LDAP_HOST'] = config.LDAP_HOST
     app.config['LDAP_BASE_DN'] = config.LDAP_BASE_DN

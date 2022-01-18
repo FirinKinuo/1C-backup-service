@@ -31,6 +31,7 @@ _config = get_config_from_yaml()
 DEBUG = bool(_config.get('debug')) or False
 LOGGER_LEVEL = logging.getLevelName(_config.get('log_level').upper())
 FLASK_SECRET_KEY = _config.get('flask_secret_key')
+FLASK_SESSION_LIFETIME = _config.get('flask_session_lifetime')
 
 LDAP_TYPE = _config.get('ldap_type')
 LDAP_HOST = _config.get('ldap_host')
