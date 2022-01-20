@@ -16,7 +16,7 @@ const postAliasName = async (original_name, alias_name) => {
 
     const payload = JSON.stringify({
         "original_name": original_name,
-        "alias_name": original_name,
+        "alias_name": alias_name,
         "share": true
     });
 
@@ -37,7 +37,7 @@ const putShareStatus = async (original_name, share_status) => {
 
     const payload = JSON.stringify({
         "original_name": original_name,
-        "alias_name": '',
+        "alias_name": original_name,
         "share": share_status
     });
 
