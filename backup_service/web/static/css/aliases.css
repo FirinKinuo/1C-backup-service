@@ -8,7 +8,7 @@
     margin: 0 auto;
     padding: 50px 0;
     width: 90%;
-    background: linear-gradient(252.74deg, #DE8655 -12.01%, #D678BF 81.56%, #D16FFF 110.17%)  fixed;
+    background: linear-gradient(252.74deg, #DE8655 -12.01%, #D678BF 81.56%, #D16FFF 110.17%) fixed;
 }
 
 .aliases__wrap {
@@ -42,6 +42,10 @@
     gap: 10px;
     width: 100%;
     font-size: 1rem;
+}
+
+.aliases__field_disabled {
+    opacity: 0.5;
 }
 
 .aliases__checkbox {

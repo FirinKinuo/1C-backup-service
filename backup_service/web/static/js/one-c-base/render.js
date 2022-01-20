@@ -1,4 +1,4 @@
-import {handleInputsAliasName, handleAcceptChangeAlias} from "./handlers.js";
+import {handleInputsAliasName, handleAcceptChangeAlias, handleChangeShareStatus} from "./handlers.js";
 import {getBasesNames} from "./api.js";
 
 export {renderAliasNamesChange, renderAlert}
@@ -12,7 +12,7 @@ const renderAliasNamesChange = async () => {
 
     bases_names.forEach(base => {
         alias_names_grid.innerHTML += `
-        <div class="aliases__field">
+        <div class="aliases__field ${!base['share'] ? 'aliases__field_disabled' : ''}">
             <div class="aliases__checkbox"></div>
             <input type="text" class="aliases__change" minlength="1" maxlength="32" id=${base['original_name']} value='${base['alias_name']}'>
             
@@ -30,6 +30,7 @@ const renderAliasNamesChange = async () => {
     });
 
     handleInputsAliasName();
+    await handleChangeShareStatus();
     await handleAcceptChangeAlias();
 }
 

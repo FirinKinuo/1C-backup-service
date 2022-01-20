@@ -3,8 +3,10 @@
         <label for="base-number">
             <select id="base-name">
                 <option selected disabled hidden value="">База 1С</option>
-                {% for base_names in base_list|sort() %}
-                    <option value="{{ base_names[0] }}">{{ base_names[1] }}</option>
+                {% for base in base_list|sort(attribute='alias_name') %}
+                    {% if base.share %}
+                        <option value="{{ base.original_name }}">{{ base.alias_name }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
         </label>

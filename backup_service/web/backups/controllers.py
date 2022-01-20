@@ -68,10 +68,9 @@ def response_backups_page() -> str:
     Returns:
         str: Строка срендренной страницы
     """
-    base_list = [(
-        base_name,
-        (one_c_bases.OneCBases.get_last(original_name=base_name) or
-         one_c_bases.OneCBases(alias_name=base_name)).alias_name) for base_name in search.search_base_backup_folders()]
+    base_list = [(one_c_bases.OneCBases.get_last(original_name=base_name) or one_c_bases.OneCBases(
+        original_name=base_name, alias_name=base_name, share=True)) for base_name in
+                 search.search_base_backup_folders()]
     return render_template(
         'backup_table.html',
         base_list=base_list,

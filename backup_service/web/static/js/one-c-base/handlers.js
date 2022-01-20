@@ -5,9 +5,9 @@ import {
     raiseSuccessAlert,
     setAliasesCheckState
 } from "./animations.js";
-import {postAliasName} from "./api.js";
+import {postAliasName, putShareStatus} from "./api.js";
 
-export {handleInputsAliasName, handleAcceptChangeAlias};
+export {handleInputsAliasName, handleAcceptChangeAlias, handleChangeShareStatus};
 
 const animateInputsAlias = (target) => {
     expandInputField(target);
@@ -90,4 +90,29 @@ const handleAcceptChangeAlias = async () => {
             "flex")
         animateInputsAlias(input_field)
     }))
+}
+
+const handleChangeShareStatus = async () => {
+    const aliases__checkboxes = document.querySelectorAll('.aliases__checkbox');
+
+    aliases__checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("click", async evt => {
+            const alias_container = evt.target.offsetParent;
+            const alias_input = alias_container.querySelector(".aliases__change");
+
+            const response_code = await putShareStatus(
+                alias_input.id,
+                alias_container.classList.contains('aliases__field_disabled'))
+
+            switch (response_code) {
+                case 200:
+                case 201:
+                    alias_container.classList.toggle("aliases__field_disabled");
+                    raiseSuccessAlert("Успешно обновлено");
+                    break
+                default:
+                    raiseErrorAlert("Произошла ошибка");
+            }
+        })
+    })
 }
